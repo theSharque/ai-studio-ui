@@ -1,0 +1,12 @@
+<div class="photo-film">
+  <div class="frame-list">
+    @for (frame of frames(); track frame.number) {
+      <app-frame
+        [number]="frame.number"
+        [active]="frame.active"
+        (clicked)="selectFrame($event)"
+      />
+    }
+    <div class="add-frame" (click)="addFrame()">+</div>
+  </div>
+</div>

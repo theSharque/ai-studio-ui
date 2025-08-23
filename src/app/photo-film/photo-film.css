@@ -1,0 +1,27 @@
+.photo-film {
+  height: 100%;
+  padding: 1rem;
+  background: #f8f9fa;
+}
+
+.frame-list {
+  display: grid;
+  grid-template-columns: repeat(28, 1fr);
+  gap: 1px;
+  height: 100%;
+}
+
+.add-frame {
+  background: white;
+  border: 1px dashed #6c757d;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.add-frame:hover {
+  background: #e9ecef;
+}

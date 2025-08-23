@@ -1,0 +1,12 @@
+.app-container {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 80vh 20vh;
+  gap: 0;
+}
+
+.top-section {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  gap: 0;
+}
