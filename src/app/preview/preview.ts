@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { App } from '../app';
 import { FrameData } from '../shared/models/frame.model';
 
@@ -11,11 +11,29 @@ import { FrameData } from '../shared/models/frame.model';
 export class Preview {
   app = inject(App);
   isPlaying = signal(false);
+  imageLoaded = signal(false);
 
   get currentFrame(): FrameData | undefined {
     return this.app.project().frames.find(
       frame => frame.id === this.app.project().activeFrameId
     );
+  }
+
+  isFrameReady = computed(() => {
+    const frame = this.currentFrame;
+    return !!frame && (frame.img !== '' || frame.generated !== '');
+  });
+
+  isImageLoaded = computed(() => {
+    return this.imageLoaded() && this.isFrameReady();
+  });
+
+  onImageLoad() {
+    this.imageLoaded.set(true);
+  }
+
+  onImageError() {
+    this.imageLoaded.set(false);
   }
 
   goToStart() {

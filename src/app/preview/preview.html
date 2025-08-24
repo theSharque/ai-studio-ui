@@ -1,13 +1,20 @@
 <div class="preview">
   <div class="current-frame">
-    <div class="frame-canvas" [class.empty]="!currentFrame">
-      @if (currentFrame) {
-        <img [src]="currentFrame.generated || currentFrame.img" alt="Frame">
+    <div class="frame-canvas">
+      @if (isFrameReady()) {
+        <img
+          [src]="currentFrame!.generated || currentFrame!.img"
+          alt="Frame"
+          (load)="onImageLoad()"
+          (error)="onImageError()"
+          [class.loaded]="isImageLoaded()"
+        >
       } @else {
-        <div class="placeholder">No frame selected</div>
+        <span class="material-icons frame-placeholder">image</span>
       }
     </div>
   </div>
+
   <div class="controls">
     <button (click)="goToStart()" title="Go to start">
       <span class="material-icons">first_page</span>
