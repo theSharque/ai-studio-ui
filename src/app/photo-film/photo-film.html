@@ -3,6 +3,7 @@
     @for (frame of app.project().frames; track frame.id) {
       <app-frame
         [frame]="frame"
+        [projectName]="app.project().name"
         [isActive]="frame.id === app.project().activeFrameId"
         [fps]="app.project().fps"
         (selected)="selectFrame($event)"

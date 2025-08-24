@@ -37,13 +37,14 @@ export class Preview {
   }
 
   goToStart() {
-    this.app.project.update(p => ({ ...p, activeFrameId: 1 }));
+    const current = this.app.project();
+    this.app.project.set({ ...current, activeFrameId: 1 });
   }
 
   prevFrame() {
     const current = this.app.project();
     const prevId = Math.max(1, current.activeFrameId - 1);
-    this.app.project.update(p => ({ ...p, activeFrameId: prevId }));
+    this.app.project.set({ ...current, activeFrameId: prevId });
   }
 
   togglePlay() {
@@ -56,12 +57,12 @@ export class Preview {
   nextFrame() {
     const current = this.app.project();
     const nextId = Math.min(current.frameCount, current.activeFrameId + 1);
-    this.app.project.update(p => ({ ...p, activeFrameId: nextId }));
+    this.app.project.set({ ...current, activeFrameId: nextId });
   }
 
   goToEnd() {
-    const frameCount = this.app.project().frameCount;
-    this.app.project.update(p => ({ ...p, activeFrameId: frameCount }));
+    const current = this.app.project();
+    this.app.project.set({ ...current, activeFrameId: current.frameCount });
   }
 
   private playAnimation() {

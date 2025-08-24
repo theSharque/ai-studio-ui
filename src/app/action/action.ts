@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
-import { PluginService } from '../shared/services/plugin.service';
-import { PluginAction, PluginParam } from '../shared/models/plugin.model';
+import { BackendService } from '../shared/services/backend.service';
+import { PluginAction } from '../shared/models/plugin.model';
 import { App } from '../app';
 
 @Component({
@@ -11,13 +11,9 @@ import { App } from '../app';
 })
 export class Action {
   app = inject(App);
-  pluginService = inject(PluginService);
+  backend = inject(BackendService);
   selectedPlugin = signal<PluginAction | null>(null);
   formData = signal<Record<string, any>>({});
-
-  constructor() {
-    this.pluginService.loadPlugins();
-  }
 
   executePlugin(plugin: PluginAction) {
     if (plugin.params.length === 0) {
@@ -30,17 +26,17 @@ export class Action {
 
   confirmAction(plugin: PluginAction) {
     if (confirm(`Execute ${plugin.name}?`)) {
-      this.sendRequest(plugin, this.formData());
+      const project = this.app.project();
+      const params = {
+        ...this.formData(),
+        project_name: project.name,
+        ['frame_id']: project.activeFrameId
+      };
+
+      this.backend.executePlugin(plugin.name, params)
+      .then(() => console.log('Plugin executed successfully'))
+      .catch(error => alert(`Error: ${error.message}`));
     }
-  }
-
-  sendRequest(plugin: PluginAction, data: Record<string, any>) {
-    console.log(`Sending to ${plugin.api}`, {
-      ...data,
-      activeFrameId: this.app.project().activeFrameId
-    });
-
-    this.selectedPlugin.set(null);
   }
 
   resetFormData(plugin: PluginAction) {
@@ -51,17 +47,11 @@ export class Action {
     this.formData.set(initialData);
   }
 
-  // УЛУЧШЕНО: Правильная типизация для обработки ввода
-  updateFormData(paramName: string, element: EventTarget | null) {
-    if (!element) return;
-
-    // Проверяем, что элемент является HTMLInputElement или HTMLSelectElement
-    if ('value' in element) {
-      this.formData.update(data => ({
-        ...data,
-        [paramName]: (element as HTMLInputElement | HTMLSelectElement).value
-      }));
-    }
+  updateFormData(paramName: string, value: any) {
+    this.formData.update(data => ({
+      ...data,
+      [paramName]: value
+    }));
   }
 
   cancelPlugin() {

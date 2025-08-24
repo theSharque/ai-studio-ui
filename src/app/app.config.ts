@@ -3,6 +3,12 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 
+export const AppConfig = {
+  apiBaseUrl: 'http://localhost:8080/api',
+  staticBaseUrl: 'http://localhost:8080/static',
+  isDebug: true
+};
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),

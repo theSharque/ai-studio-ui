@@ -1,8 +1,9 @@
-import { Component, signal, computed } from '@angular/core';
-import { ProjectData } from './shared/models/project.model'; // Исправлен путь
-import { Controls } from './controls/controls';
-import { Preview } from './preview/preview';
-import { PhotoFilm } from './photo-film/photo-film';
+import {Component, inject, signal, computed} from '@angular/core';
+import {BackendService} from './shared/services/backend.service';
+import {Controls} from './controls/controls';
+import {Preview} from './preview/preview';
+import {PhotoFilm} from './photo-film/photo-film';
+import {ProjectData} from './shared/models/project.model';
 
 @Component({
   selector: 'app-root',
@@ -12,18 +13,28 @@ import { PhotoFilm } from './photo-film/photo-film';
   styleUrls: ['./app.css']
 })
 export class App {
+  backend = inject(BackendService);
+
+  // Инициализация при старте
+  constructor() {
+    this.backend.init();
+  }
+
+  // Вычисляемые свойства для удобства
   project = signal<ProjectData>({
     name: 'MyFirstMovie',
     size: '480x320',
     frameCount: 64,
     fps: 16,
     activeFrameId: 3,
-    frames: Array.from({ length: 64 }, (_, i) => ({
+    frames: Array.from({length: 64}, (_, i) => ({
       id: i + 1,
       img: '',
       generated: '',
       separate: false
-    }))
+    })),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   });
 
   duration = computed(() => {

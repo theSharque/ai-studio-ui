@@ -13,7 +13,7 @@
   flex-direction: column;
   padding: 4px;
   box-sizing: border-box;
-  margin: 0 2px;
+  margin: 0 8px; /* УВЕЛИЧЕНО РАССТОЯНИЕ (было 2px) */
 }
 
 .frame:hover {
@@ -23,8 +23,9 @@
 }
 
 .frame.active {
-  border: 3px solid #a72845;
+  border: 3px solid #0d6efd; /* ГОЛУБОЙ ЦВЕТ ВМЕСТО КРАСНОГО */
   transform: scale(1.02);
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.25);
 }
 
 .frame-header {

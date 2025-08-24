@@ -2,7 +2,7 @@
   <h3>Actions</h3>
 
   <div class="plugin-buttons">
-    @for (plugin of pluginService.plugins(); track plugin.name) {
+    @for (plugin of backend.plugins(); track plugin.name) {
       <button
         class="plugin-button"
         (click)="executePlugin(plugin)"
