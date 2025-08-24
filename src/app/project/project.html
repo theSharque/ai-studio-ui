@@ -1,8 +1,43 @@
-<div class="project-info">
-  <h3>Project</h3>
-  <div>Name: {{ app.project().name }}</div>
-  <div>Size: {{ app.project().size }}</div>
-  <div>Frames: {{ app.project().frameCount }}</div>
-  <div>FPS: {{ app.project().fps }}</div>
-  <div>Time: {{ app.duration() }}</div>
+<div class="project">
+  <div class="project-header">
+    <h3>Project</h3>
+    <button class="new-project-btn" (click)="openCreateProjectModal()">New Project</button>
+  </div>
+
+  <div class="project-info">
+    <p><strong>Name:</strong> {{ app.project().name }}</p>
+    <p><strong>Size:</strong> {{ app.project().size }}</p>
+    <p><strong>FPS:</strong> {{ app.project().fps }}</p>
+    <p><strong>Time:</strong> {{ app.project().duration }}</p>
+  </div>
+
+  <!-- Модальное окно для создания проекта -->
+  @if (isCreatingProject()) {
+    <div class="modal-overlay" (click)="closeCreateProjectModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h4>Create New Project</h4>
+          <span class="close-button" (click)="closeCreateProjectModal()">&times;</span>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Project Name</label>
+            <input
+              type="text"
+              [value]="newProjectName()"
+              (input)="newProjectName.set($event.target.value)"
+              placeholder="Enter project name"
+              autofocus
+            >
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="cancel" (click)="closeCreateProjectModal()">Cancel</button>
+          <button class="confirm" (click)="createProject()">Create</button>
+        </div>
+      </div>
+    </div>
+  }
 </div>

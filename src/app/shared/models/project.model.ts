@@ -6,7 +6,6 @@ export interface ProjectData {
   frameCount: number;
   fps: number;
   activeFrameId: number;
+  duration: number;
   frames: FrameData[];
-  createdAt: string;
-  updatedAt: string;
 }

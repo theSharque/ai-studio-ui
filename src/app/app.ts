@@ -27,14 +27,13 @@ export class App {
     frameCount: 64,
     fps: 16,
     activeFrameId: 3,
+    duration: 400,
     frames: Array.from({length: 64}, (_, i) => ({
       id: i + 1,
       img: '',
       generated: '',
       separate: false
-    })),
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    }))
   });
 
   duration = computed(() => {

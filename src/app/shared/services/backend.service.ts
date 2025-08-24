@@ -78,6 +78,19 @@ export class BackendService {
     }
   }
 
+  async createProject(name: string): Promise<void> {
+    const response = await fetch(`${this.API_BASE_URL}/projects`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to create project');
+    }
+  }
+
   // Загрузка списка плагинов
   async loadPlugins() {
     try {
