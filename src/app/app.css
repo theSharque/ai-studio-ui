@@ -1,7 +1,7 @@
 .app-container {
-  height: 100vh;
+  height: 90vh;
   display: grid;
-  grid-template-rows: 80vh 20vh;
+  grid-template-rows: 75vh 20vh;
   gap: 0;
 }
 

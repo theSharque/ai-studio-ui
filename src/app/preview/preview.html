@@ -1,14 +1,28 @@
 <div class="preview">
   <div class="current-frame">
-    <div class="frame-canvas">
-      <div class="frame-grid"></div>
+    <div class="frame-canvas" [class.empty]="!currentFrame">
+      @if (currentFrame) {
+        <img [src]="currentFrame.generated || currentFrame.img" alt="Frame">
+      } @else {
+        <div class="placeholder">No frame selected</div>
+      }
     </div>
   </div>
   <div class="controls">
-    <button><<</button>
-    <button><</button>
-    <button>||</button>
-    <button>></button>
-    <button>>></button>
+    <button (click)="goToStart()" title="Go to start">
+      <span class="material-icons">first_page</span>
+    </button>
+    <button (click)="prevFrame()" title="Previous frame">
+      <span class="material-icons">chevron_left</span>
+    </button>
+    <button (click)="togglePlay()" title="Play/Pause">
+      <span class="material-icons">{{ isPlaying() ? 'pause' : 'play_arrow' }}</span>
+    </button>
+    <button (click)="nextFrame()" title="Next frame">
+      <span class="material-icons">chevron_right</span>
+    </button>
+    <button (click)="goToEnd()" title="Go to end">
+      <span class="material-icons">last_page</span>
+    </button>
   </div>
 </div>

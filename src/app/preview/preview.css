@@ -19,21 +19,25 @@
   height: 100%;
   position: relative;
   background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.frame-grid {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image:
-    linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
+.frame-canvas.empty {
+  background: #f8f9fa;
+  color: #6c757d;
+}
+
+.frame-canvas img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .controls {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   margin-top: 1rem;
 }
 
@@ -44,4 +48,30 @@ button {
   color: white;
   border: none;
   border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* Стили для Material Icons */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.5rem;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
 }

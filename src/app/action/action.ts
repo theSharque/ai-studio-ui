@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { App } from '../app';
+import { App } from '../app'; // Исправлен путь
 
 @Component({
   selector: 'app-action',
@@ -11,23 +11,11 @@ export class Action {
   app = inject(App);
 
   addFrame() {
-    // ИСПРАВЛЕНО: правильно используем сигналы
-    const current = this.app.project();
-    this.app.project.update(p => ({
-      ...p,
-      frames: p.frames + 1,
-      time: this.calculateTime(p.frames + 1, p.fps)
-    }));
+    const photoFilm = document.querySelector('app-photo-film') as any;
+    photoFilm?.addFrame();
   }
 
   exportProject() {
     console.log('Exporting project:', this.app.project());
-  }
-
-  private calculateTime(frames: number, fps: number): string {
-    const seconds = frames / fps;
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   }
 }

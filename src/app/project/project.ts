@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { App } from '../app';
+import { App } from '../app'; // Исправлен путь
+import { ProjectData } from '../shared/models/project.model'; // Исправлен путь
 
 @Component({
   selector: 'app-project',

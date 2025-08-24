@@ -7,11 +7,11 @@ import { Component, input, output } from '@angular/core';
   styleUrls: ['./frame.css']
 })
 export class Frame {
-  number = input.required<number>();
-  active = input(false);
-  clicked = output<number>();
+  id = input.required<number>();
+  isActive = input(false);
+  selected = output<number>();
 
   onClick() {
-    this.clicked.emit(this.number());
+    this.selected.emit(this.id());
   }
 }
