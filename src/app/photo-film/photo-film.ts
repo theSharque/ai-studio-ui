@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { App } from '../app'; // Исправлен путь
+import { App } from '../app';
 import { Frame } from '../frame/frame';
-import { FrameData } from '../shared/models/frame.model'; // Исправлен путь
-import { PluginService } from '../shared/services/plugin.service'; // Исправлен путь
+import { FrameData } from '../shared/models/frame.model';
+import { PluginService } from '../shared/services/plugin.service';
 
 @Component({
   selector: 'app-photo-film',

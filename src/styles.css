@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+/* КРИТИЧЕСКИ ВАЖНОЕ ПРАВИЛО */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Решение проблемы с min-width в grid контейнерах */
+.app-container,
+.top-section,
+.photo-film {
+  min-width: 0 !important;
+}

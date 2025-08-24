@@ -1,13 +1,12 @@
 <div class="photo-film">
-  <div class="frame-list">
+  <div class="film-reel">
     @for (frame of app.project().frames; track frame.id) {
       <app-frame
-        [id]="frame.id"
+        [frame]="frame"
         [isActive]="frame.id === app.project().activeFrameId"
+        [fps]="app.project().fps"
         (selected)="selectFrame($event)"
-        title="Frame {{ frame.id }}"
       />
     }
-    <div class="add-frame" (click)="addFrame()" title="Add new frame">+</div>
   </div>
 </div>

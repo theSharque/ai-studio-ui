@@ -1,5 +1,5 @@
-import { Component, input, output, inject } from '@angular/core';
-import { PhotoFilm } from '../photo-film/photo-film'; // Исправлен путь
+import { Component, input, output } from '@angular/core'; // Убран inject из импортов
+import { FrameData } from '../shared/models/frame.model';
 
 @Component({
   selector: 'app-frame',
@@ -8,19 +8,21 @@ import { PhotoFilm } from '../photo-film/photo-film'; // Исправлен пу
   styleUrls: ['./frame.css']
 })
 export class Frame {
-  id = input.required<number>();
+  frame = input.required<FrameData>();
   isActive = input(false);
+  fps = input(16);
   selected = output<number>();
-  photoFilm = inject(PhotoFilm);
 
   onClick() {
-    this.selected.emit(this.id());
+    this.selected.emit(this.frame().id);
   }
 
-  deleteFrame(event: Event) {
-    event.stopPropagation();
-    if (confirm('Delete this frame?')) {
-      this.photoFilm.deleteFrame(this.id());
-    }
+  get time(): string {
+    const timeMs = (this.frame().id - 1) * (1000 / this.fps());
+    const minutes = Math.floor(timeMs / 60000);
+    const seconds = Math.floor((timeMs % 60000) / 1000);
+    const milliseconds = timeMs % 1000;
+
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
   }
 }

@@ -2,6 +2,22 @@
   class="frame"
   [class.active]="isActive()"
   (click)="onClick()"
+  title="Frame {{ frame().id }}"
 >
-  {{ id() }}
+  <div class="frame-header">
+    <span class="frame-number">{{ frame().id }}</span>
+    @if (frame().generated) {
+      <span class="generated-label">generated</span>
+    }
+  </div>
+
+  <div class="frame-content">
+    <div class="frame-placeholder">
+      <span class="material-icons">image</span>
+    </div>
+  </div>
+
+  <div class="frame-footer">
+    {{ time }}
+  </div>
 </div>

@@ -1,27 +1,47 @@
 .photo-film {
   height: 100%;
-  padding: 1rem;
-  background: #f8f9fa;
-}
-
-.frame-list {
-  display: grid;
-  grid-template-columns: repeat(28, 1fr);
-  gap: 1px;
-  height: 100%;
-}
-
-.add-frame {
-  background: white;
-  border: 1px dashed #6c757d;
-  cursor: pointer;
+  width: 180vh;
+  max-width: 100%;
+  padding: 0.75rem 1.5rem;
+  background: #343a40;
+  border-top: 2px solid #e9ecef;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  transition: all 0.2s;
+  overflow: hidden; /* Обрезает переполнение */
+  min-width: 0; /* КРИТИЧЕСКИ ВАЖНО */
 }
 
-.add-frame:hover {
-  background: #e9ecef;
+.film-reel {
+  display: flex;
+  overflow-x: auto;
+  padding: 0.5rem;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: #6c757d #495057;
+  scroll-behavior: smooth;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+/* Скрыть вертикальную прокрутку */
+.film-reel::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.film-reel::-webkit-scrollbar-track {
+  background: #495057;
+  border-radius: 3px;
+}
+
+.film-reel::-webkit-scrollbar-thumb {
+  background: #6c757d;
+  border-radius: 3px;
+}
+
+/* Добавляем "буфер" в конце для лучшей прокрутки */
+.film-reel::after {
+  content: '';
+  flex: 0 0 20px;
 }
