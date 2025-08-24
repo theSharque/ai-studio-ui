@@ -15,10 +15,10 @@ export class App {
   project = signal<ProjectData>({
     name: 'MyFirstMovie',
     size: '480x320',
-    frameCount: 160,
+    frameCount: 64,
     fps: 16,
     activeFrameId: 3,
-    frames: Array.from({ length: 160 }, (_, i) => ({
+    frames: Array.from({ length: 64 }, (_, i) => ({
       id: i + 1,
       img: '',
       generated: '',

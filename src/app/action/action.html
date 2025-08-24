@@ -1,8 +1,69 @@
-<div class="action">
+<div class="actions">
   <h3>Actions</h3>
-  <div class="buttons">
-    <button (click)="addFrame()">Add Frame</button>
-    <button (click)="exportProject()">Export</button>
-    <button>Settings</button>
+
+  <div class="plugin-buttons">
+    @for (plugin of pluginService.plugins(); track plugin.name) {
+      <button
+        class="plugin-button"
+        (click)="executePlugin(plugin)"
+        [disabled]="!app.project().frames.length"
+        title="{{ plugin.name }}"
+      >
+        {{ plugin.name }}
+      </button>
+    }
   </div>
+
+  @if (selectedPlugin()) {
+    <div class="modal-overlay" (click)="cancelPlugin()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h4>{{ selectedPlugin()!.name }} Parameters</h4>
+          <span class="close-button" (click)="cancelPlugin()">&times;</span>
+        </div>
+
+        <div class="modal-body">
+          @for (param of selectedPlugin()!.params; track param.name) {
+            <div class="form-group">
+              <label>{{ param.name }}</label>
+
+              @if (param.type === 'string') {
+                <input
+                  type="text"
+                  [value]="formData()[param.name]"
+                  (input)="updateFormData(param.name, $event.target)"
+                >
+              }
+
+              @if (param.type === 'number') {
+                <input
+                  type="number"
+                  [value]="formData()[param.name]"
+                  (input)="updateFormData(param.name, $event.target)"
+                >
+              }
+
+              @if (param.type === 'list' && param.listValues) {
+                <select
+                  [value]="formData()[param.name]"
+                  (input)="updateFormData(param.name, $event.target)"
+                >
+                  @for (value of param.listValues; track value) {
+                    <option [value]="value">
+                      {{ value }}
+                    </option>
+                  }
+                </select>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="modal-footer">
+          <button class="cancel" (click)="cancelPlugin()">Cancel</button>
+          <button class="confirm" (click)="confirmAction(selectedPlugin()!)">Execute</button>
+        </div>
+      </div>
+    </div>
+  }
 </div>
