@@ -50,7 +50,7 @@ export class Action {
   updateFormData(paramName: string, value: any) {
     this.formData.update(data => ({
       ...data,
-      [paramName]: value
+      [paramName]: value.value
     }));
   }
 
